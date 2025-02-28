@@ -12,8 +12,8 @@ if ($Timer.IsPastDue) {
 # Authenticate with Azure using Managed Identity
 Connect-AzAccount -Identity -ErrorAction Stop
  
-# Get all VMs in the resource group
-$vmList = Get-AzVM -Status
+# Get all VMs in the subscription tied to the Function App
+$vmList = Get-AzVM
  
 foreach ($vm in $vmList) {
     #Get name of VM
@@ -40,8 +40,3 @@ foreach ($vm in $vmList) {
         Write-Output "VM $vmName is in state: $powerState. No action taken."
     }
 }
- 
-# Get all VMs in the Subscription
-$vmList = Get-AzVM -Status
- 
-#Stopping the VM with the name and resource group
